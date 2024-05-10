@@ -14,11 +14,14 @@ const port = process.env.PORT;
 app.use(cors());
 
 const authRoute = require("./routes/auth");
+const ledRoute = require("./routes/led");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use("/api/led", ledRoute);
 app.use("/api/auth", authRoute);
+
 
 app.get("/", (req, res) => {
   res.send({ message: "Hello World !"});
