@@ -15,10 +15,12 @@ app.use(cors());
 
 const authRoute = require("./routes/auth");
 const ledRoute = require("./routes/led");
+const badgeRoute = require("./routes/badge");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use("/api/badge", badgeRoute);
 app.use("/api/led", ledRoute);
 app.use("/api/auth", authRoute);
 

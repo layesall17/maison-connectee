@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET_KEY;
 
 router.post("/register", async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password, confirmPassword, admin } = req.body;
   if (!password || !email || !username || !confirmPassword)
     return res.status(400).json({
       message: "email, username, password, confirmPassword is required !",
@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
   const findUser = await User.findOne({ username });
   if (findUser)
     return res.status(400).json({
-      message: "Username user already exist ! ",
+      message: "Username user already exist !",
     });
 
   const match = await comparePassword(confirmPassword, hashedPassword);
@@ -29,6 +29,7 @@ router.post("/register", async (req, res) => {
     username,
     email,
     password: hashedPassword,
+    admin
   });
 
   try {
